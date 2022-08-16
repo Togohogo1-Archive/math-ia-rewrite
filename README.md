@@ -1,2 +1,4 @@
 # Math IA Scripts
-Intensity map plotters, computer vision algorithms, and generated images used in my IB HL Mathematics internal assessment
+Original IB HL Mathematics Internal Assessment was written on Microsoft Word. I rewrote this for LaTeX practice.
+
+This repo also contains Python scripts for intensity map plotters, computer vision algorithms, and generated images.
