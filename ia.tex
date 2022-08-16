@@ -6,6 +6,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{IEEEtrantools}
 
 \renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
 
@@ -89,6 +90,12 @@ can be rewritten as:
 \begin{equation}
     \frac{dI}{dx} = \lim_{h \to 1}{\frac{f[x+h] - f[x]}{h} = \lim_{h \to 1}{\frac{f[x] - f[x-h]}{h}} = \lim_{h \to 1}{\frac{f[x+h] - f[x-h]}{2h}}}
 \end{equation}
-
+Although the values for these derivatives at a pixel $x$ may be different, they represent the same thing conceptually. The first 2 limits simply take the difference between adjacent pixel intensities while the 3rd takes the difference between the intensities of a pixel to the right of $x$ and a pixel to the left of $x$. However, the most practical way to represent $\frac{dI}{dx}$ is:
+\begin{align}
+    \frac{dI}{dx} &= \lim_{h \to 1}{\frac{I[x+h] - I[x-h]}{2h}} \nonumber \\
+    &= \frac{I[x+1] - I[x-1]}{2} \nonumber \\
+    &= I[x+1] - I[x-1]
+\end{align}
+Since $\frac{dI}{dx}$ is taken while centered at $x$. Additionally, $I[x]$ can be automatically ignored for negative values of $x$, and the constant $\frac{1}{2}$ is disregarded because $\frac{dI}{dx}$ is sometimes multiplied by an arbitrary constant to brighten the lighter pixels anyway. Moreover, the range of $\frac{dI}{dx}$ is restricted such that $0 \le \frac{dI}{dx} \le 255$, meaning numbers out of bounds can either be ignored, rounded to their nearest endpoint, or normalized to fit within the bounds.
 \end{document}
 
