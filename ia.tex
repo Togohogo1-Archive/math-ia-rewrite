@@ -21,9 +21,6 @@
 
 \tableofcontents
 \newpage
-\listoffigures
-
-\newpage
 
 \section{Introduction}
 As a programmer and hobbyist graphic designer, I have worked with many vector and raster-based design programs ranging from Gravit Designer to Adobe Photoshop, and wondered about how certain features are implemented. Thus, I focused my attention to the mathematics governing algorithms used in 2D computer graphics, but my initial stages of research revealed many areas that could be potentially explored. However, I remember one day I tried to vectorize a photograph by tracing around it with the pen tool, which sparked my desire to explore how a computer would “trace” a photograph through edge detection.
@@ -31,7 +28,7 @@ As a programmer and hobbyist graphic designer, I have worked with many vector an
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=\textwidth]{figures/figure01.png}
-    \caption[The exact image I tried to trace]{\centering The exact image I tried to trace. Left image retrieved from \href{https://static.wikia.nocookie.net/maker-scratchpad-youtube/images/2/2a/Toco_Toucan.jpg/revision/latest?cb=20200318045659}{https:\slash\slash static.wikia.nocookie.net\slash maker-scratchpad-youtube\slash images\slash 2\slash 2a\slash Toco\_Toucan.jpg\slash revision\slash latest?cb=20200318045659}}
+    \caption{\centering The exact image I tried to trace. Left image retrieved from \href{https://static.wikia.nocookie.net/maker-scratchpad-youtube/images/2/2a/Toco_Toucan.jpg/revision/latest?cb=20200318045659}{https:\slash\slash static.wikia.nocookie.net\slash maker-scratchpad-youtube\slash images\slash 2\slash 2a\slash Toco\_Toucan.jpg\slash revision\slash latest?cb=20200318045659}}
     \label{fig:figure 1}
 \end{figure}
 
@@ -47,7 +44,7 @@ Edges can be categorized into 4 common types:
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=\textwidth]{figures/figure02.png}
-    \caption[The 4 common types of edges]{\centering The 4 common types of edges. The left side gives a gives a visual representation of an edge while the right side shows the edge's intensity profile.}
+    \caption{\centering The 4 common types of edges. The left side gives a gives a visual representation of an edge while the right side shows the edge's intensity profile.}
     \label{fig:figure 2}
 \end{figure}
 
@@ -71,7 +68,7 @@ Now consider the image intensity profile $I[x]$, a discrete function such that $
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=0.5\textwidth]{figures/figure03.png}
-    \caption[The intensity profile of this image is denoted by the red line]{The intensity profile of this image is denoted by the red line}
+    \caption{The intensity profile of this image is denoted by the red line}
     \label{fig:figure 3}
 \end{figure}
 
@@ -79,7 +76,7 @@ The following graphs can be made:
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=\textwidth]{figures/figure04.png}
-    \caption[{Graphs for $I[x]$ and the derivative of $I[x]$}]{Graphs for $I[x]$ and the derivative of $I[x]$}
+    \caption{Graphs for $I[x]$ and the derivative of $I[x]$}
     \label{fig:figure 4}
 \end{figure}
 Since an edge is defined as a sharp change in image intensity, taking the derivative of $I[x]$
@@ -108,7 +105,7 @@ An image accounts for the image intensity profiles $I[x]$ for all values of y wi
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=\textwidth]{figures/figure05.png}
-    \caption[Plotting the image intensity map for the image on the left]{Plotting the image intensity map for the image on the left}
+    \caption{Plotting the image intensity map for the image on the left}
     \label{fig:figure 5}
 \end{figure}
 
@@ -151,7 +148,7 @@ Given the following image:
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=0.5\linewidth]{figures/figure06.png}
-    \caption[Ring shape consisting of only 3 shades of grey]{Ring shape consisting of only 3 shades of grey. The image size is 1000 pixels by 1000 pixels.}
+    \caption{Ring shape consisting of only 3 shades of grey. The image size is 1000 pixels by 1000 pixels.}
     \label{fig:figur 6}
 \end{figure}
 
@@ -160,7 +157,7 @@ Applying $\frac{\partial I}{\partial x}$ and $\frac{\partial I}{\partial y}$ giv
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=\linewidth]{figures/figure07.png}
-    \caption[{The image on the left reflects $\frac{\partial I}{\partial x}$ and on the right $\frac{\partial I}{\partial y}$}]{The image on the left reflects $\frac{\partial I}{\partial x}$ and on the right $\frac{\partial I}{\partial y}$}
+    \caption{The image on the left reflects $\frac{\partial I}{\partial x}$ and on the right $\frac{\partial I}{\partial y}$}
     \label{fig:figure 7}
 \end{figure}
 
@@ -171,6 +168,48 @@ Since the intensity difference between a black and white pixel can be $\pm255$, 
 Visually, if $I[p]$ is closer to $m_0$, $I_\text{norm}$ is closer to 0 (hence darker) and if $I[p]$ is closer to $M_0$, then $I_\text{norm}$ is closer to 255 (hence lighter).
 
 \section{The Gradient Vector and the Directional Derivative}
+\setcounter{equation}{0}
+
+Figure \ref{fig:figure 7} depicts edges being successfully detected in the $x$ and $y$ directions. If edges are to be detected in any direction, an important property of partial derivatives must be applied. Consider a point $p(x,y)$ on a function $f(x,y)=f(p)$ with partial derivatives $\frac{\partial f}{\partial x}$ and $\frac{\partial f}{\partial x}$. The gradient vector of the function, $\nabla f(p)$ is defined as a vector with $x$ and $y$ components $\frac{\partial f}{\partial x}$ and $\frac{\partial f}{\partial y}$:
+\begin{equation}
+    \nabla f(p) = \begin{pmatrix}
+        \frac{\partial f}{\partial x} \\[1ex]
+        \frac{\partial f}{\partial y}
+    \end{pmatrix}
+\end{equation}
+For example, $\nabla f(p)$ for the function $f(p) = x^2 + y^2$ generates a vector field along the $xy$-plane governed by:
+\begin{align}
+    \nabla f(p) &= \begin{pmatrix}
+        \frac{\partial}{\partial x} (x^2 + y^2) \\[1ex]
+        \frac{\partial}{\partial y} (x^2 + y^2)
+    \end{pmatrix} \nonumber \\
+    &= \begin{pmatrix}
+        2x + 0 \\
+        0 + 2y
+    \end{pmatrix} \nonumber \\
+    &= \begin{pmatrix}
+        2x \\
+        2y
+    \end{pmatrix}
+\end{align}
+The graph of $f(p)$ and $\nabla f(p)$ is simultaneously shown below:
+
+\begin{figure}[!hbtp]
+    \centering
+    \includegraphics[width=0.5\linewidth]{figures/figure08.png}
+    \caption{The paraboloid depicts $f(x,y)$ while the vector field depicts $\begin{pmatrix}2x\\2y\end{pmatrix}$. Image created with CalcPlot3D.}
+    \label{figure 8}
+\end{figure}
+
+The visualization in Figure 8 provides an interesting observation, that is $\nabla f(p)$ for $f(x,y)=x^2+y^2$ always points in the direction of steepest ascent on the function. To prove that this is the case for any $f(x,y)$, the concept of the directional derivative is useful.
 
 \end{document}
-$\{I:I \in \mathbb{Z}, 0 \le I \le 255\}$
+
+$\frac{\partial f}{\partial x}$
+$\frac{\partial f}{\partial y}$
+
+custom figures
+
+proper indentation for paragraphs
+
+double check equation formulas
